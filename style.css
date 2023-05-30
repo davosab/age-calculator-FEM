@@ -1,0 +1,227 @@
+:root {
+  --error-size: 10px;
+  --output-margin-top-media-q: calc(0.5em - 1.5 * var(--error-size));
+  /* Colors */
+  /* Primary */
+  --Purple: hsl(259, 100%, 65%);
+  --Red: hsl(0, 100%, 67%);
+
+  /* Secondary */
+  --White: hsl(0, 0%, 100%);
+  --Off-white: hsl(0, 0%, 94%);
+  --Light-grey: hsl(0, 0%, 86%);
+  --Smokey-grey: hsl(0, 1%, 44%);
+  --Off-black: hsl(0, 0%, 8%);
+
+  /* Fonts */
+  --regular: 400;
+  --bold: 700;
+  --extra-bold: 800;
+
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(20px, 2.75vw, 32px);
+  color: var(--Off-black);
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+body {
+  min-height: 100vh;
+  background: var(--Off-white);
+  padding: min(80px, 10vh) 0.75rem;
+  display: grid;
+}
+article {
+  background: var(--White);
+  padding: 2.5rem 1.175rem;
+  border-radius: 
+    min(24px, 1.25rem) min(24px, 1.25rem) 5rem min(24px, 1.25rem);
+  max-width: 840px;
+  margin: auto;
+}
+
+/*** Input ***/
+#input {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  padding-bottom: 3rem;
+  border-bottom: 2px solid var(--Off-white);
+  transition: all ease-out 0.2s;
+}
+#input p:first-child {
+  color: var(--Smokey-grey);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.5em;
+}
+input {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  caret-color: var(--Purple);
+  width: 100%;
+  max-width: 5.55rem;
+  font-size: 1rem;
+  padding: 0.55em 0.6em;
+  border: 1px solid var(--Light-grey);
+  border-radius: 8px;
+  color: var(--Off-black);
+  font-weight: var(--extra-bold);
+  transition: all 0.2s ease-out;
+}
+input:focus {
+  border-color: var(--Purple);
+  outline: none;
+}
+.error-message {
+  position: relative;
+  font: italic var(--regular) var(--error-size) 'Poppins', sans-serif;
+  color: var(--Red);
+}
+
+/* Animations */
+@keyframes bounce {
+  0% {top: calc(-1 * var(--error-size));transform: translateY(0);}
+  42% {top: 0;}
+  67% {top: calc(-0.4 * var(--error-size));}
+  82% {top: 0;}
+  91% {top: calc(-0.175 * var(--error-size));}
+  100% {top: 0; transform: translateY(calc(0.5 * var(--error-size)));}
+}
+/* bounce message */
+.bounce-animation p.error-message {
+  animation: bounce ease-in 0.3s;
+  animation-fill-mode: forwards;
+}
+/* increase padding under #input */
+.bounce-animation #input {
+  padding-bottom: calc(3rem + 1.5 * var(--error-size));
+  transition: padding-bottom ease-out 0.1s;
+}
+/* reduce margin-top on .output */
+.bounce-animation + .output {
+  margin-top: calc(1.2em - 1.5 * var(--error-size));
+}
+/* JS added */
+.red p {
+  color: var(--Red) !important;
+}
+.red input {
+  border-color: var(--Red) !important;
+  caret-color: var(--Red);
+}
+/************/
+
+button {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  border: none;
+  border-radius: 50%;
+  background: var(--Purple);
+  padding: 1rem;
+  transition: all 0.2s ease-out;
+}
+button:hover {
+  cursor: pointer;
+  background: var(--Off-black);
+}
+button:active {
+  background: #222;
+  transition: all 0s;
+}
+button svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  stroke-width: 4;
+}
+
+/*** Output ***/
+.output {
+  font: italic var(--extra-bold) 2.65rem 'Poppins', sans-serif;
+  margin-top: 1.2em;
+}
+.output p {
+  line-height: 1.1;
+}
+.output span {
+  color: var(--Purple);
+}
+
+@media screen and (min-height: 740px){/* Prevent scroll */
+  body {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@media screen and (min-width: 630px) {
+  article {
+    padding: 2rem 2rem;
+    width: 100%;
+    max-width: min(80vw, 840px);
+    border-bottom-right-radius: 6.5rem;
+  }
+  #input {
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+  }
+  #input p:first-child {
+    font-size: 14px;
+    margin-bottom: 0.8em;
+  }
+  input {
+    padding: 0.35em 0.6em;
+  }
+  button {
+    padding: 0.75rem;
+    right: 0;
+    left: auto;
+    transform: translate(0, -50%);
+  }
+  button svg {
+    stroke-width: 2px;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  .output {
+    margin-top: 0.5em;
+    font-size: 3.25rem;
+  }
+  .bounce-animation + .output {
+    margin-top: var(--output-margin-top-media-q);
+  }
+}
+@media screen and (min-width: 800px) {
+  :root {
+    --error-size: 11px;
+  }
+}
+@media screen and (min-width: 900px) {
+  :root {
+    --error-size: 12px;
+  }
+}
+@media screen and (min-width: 950px) {
+  :root {
+    --error-size: 13px;
+  }
+}
+@media screen and (min-width: 1050px) {
+  :root {
+    --error-size: 14px;
+  }
+}
