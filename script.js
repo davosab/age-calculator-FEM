@@ -60,10 +60,13 @@ let
       currentDate;
     
     // go back one month
-    if (nrMonths == 12)
-      nrMonths = 11;
-    else {
-      nrMonths -= 1;
+    switch (nrMonths) {
+      case 0:
+        nrMonths = 11;
+        nrYears -= 1;
+        break;
+      default:
+        nrMonths -= 1;
     }
   }
   animateAge(nrYears, nrMonths, nrDays);
@@ -238,3 +241,4 @@ function showErrors() {
 
 // Events
 button.onclick = () => validateDate() ? calculateAge() : showErrors();
+
